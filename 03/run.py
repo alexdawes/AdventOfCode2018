@@ -77,4 +77,4 @@ def run2_2():
 
 if __name__ == '__main__':
   print('Part 1: {}'.format(run1()))
-  print('Part 2: {}'.format(run22()))
+  print('Part 2: {}'.format(run2_2()))
