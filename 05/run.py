@@ -1,39 +1,45 @@
-import re
-
 alphabet = 'abcdefghijklmnopqrstuvwxyz'
 
 def parseInput():
   with open('input', 'r') as f:
     return f.read()
 
-def getRegex():
-  pairs = []
-  for letter in alphabet:
-    pairs.append('{}{}'.format(letter.upper(), letter.lower()))
-    pairs.append('{}{}'.format(letter.lower(), letter.upper()))
-  return r'({})'.format('|'.join(pairs))
+def getLinks(s):
+  return [i+1 if i+1 < len(s) else None for i in range(len(s))]
 
-def reduce(s):
-  regex = getRegex()
-  lastLength = None
-  currentLength = len(s)
-  while(lastLength != currentLength):
-    s = re.sub(regex, '', s)
-    lastLength, currentLength = currentLength, len(s)
-  return s
+def reduce(links, s):
+  idx = len(s) - 2
+  while idx >= 0:
+    current, nextIdx = s[idx], links[idx]
+    if nextIdx is not None:
+      nxt = s[nextIdx]
+      if (current == current.lower() and nxt == current.upper()) \
+       or (current == current.upper() and nxt == current.lower()) \
+       and idx > 0:
+        links[idx - 1] = links[nextIdx]
+    idx -= 1
+
+def getLength(links):
+  idx, count = 0, 0
+  while idx is not None:
+    count, idx = count + 1, links[idx]
+  return count
+
+def getReducedLength(s):
+  links = getLinks(s)
+  reduce(links, s)
+  return getLength(links)
+
+def removeLetter(s, letter):
+  return s.replace(letter.upper(), '').replace(letter.lower(), '')
 
 def run1():
   s = parseInput()
-  return len(reduce(s))
-
-def removeAndReduce(s, letter):
-  regex = '({}|{})'.format(letter.upper(), letter.lower())
-  s = re.sub(regex, '', s)
-  return reduce(s)
+  return getReducedLength(s)
 
 def run2():
   s = parseInput()
-  return min([len(removeAndReduce(s, letter)) for letter in alphabet])
+  return min([getReducedLength(removeLetter(s, l)) for l in alphabet])
 
 if __name__ == '__main__':
   print('Part 1: {}'.format(run1()))
