@@ -35,5 +35,5 @@ def run2():
   return ''.join([str(r) for r in scoreboard.values]).index(recipeStr)
 
 if __name__ == '__main__':
-  print('Part 1: {}'.format(run1()))
-  print('Part 2: {}'.format(run2()))
+  print(f'Part 1: {run1()}')
+  print(f'Part 2: {run2()}')
