@@ -76,8 +76,8 @@ class Map(object):
     blockingUnits = [u for u in self.units if u.pos == p]
     return len(blockingWalls + blockingUnits) > 0
 
-  # def L1(self, start, end):
-  #   return abs(start[0] - end[0]) + abs(start[1] - end[1])
+  def L1(self, start, end):
+    return abs(start[0] - end[0]) + abs(start[1] - end[1])
 
   # def aStar(self, start, end):
   #   l1 = self.L1(start,end)
@@ -198,10 +198,6 @@ def run1():
   map = parseInput()
   turnCount = 0
   while len(map.remainingTeams()) > 1:
-    print('Round {}: Goblins: {}, Elves: {}'.format(
-      turnCount + 1,
-      len([u for u in map.units if u.team == Team.GOBLIN]),
-      len([u for u in map.units if u.team == Team.ELF])))
     fullRound = map.iterate()
     print('Round {}: Goblins: {}, Elves: {}'.format(
       turnCount + 1,
