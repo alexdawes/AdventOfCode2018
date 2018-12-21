@@ -1,0 +1,31 @@
+0 . f = 123
+1.  f = f & 456
+2.  f = (1 if f == 72 else 0)
+3.  GOTO 4 + f
+4.  GOTO 0
+5.  f = 0
+6.  e = f | 65536
+7.  f = 8858047
+8.  c = e & 255
+9.  f = f + c
+10. f = f & 16777215
+11. f = f * 65899
+12. f = f & 16777215
+13. c = (1 if 256 > e else 0)
+14. GOTO (15 + c)
+15. GOTO 17
+16. GOTO 28
+17. c = 0
+18. b = c + 1
+19. b = b * 256
+20. b = (1 if b > e else 0)
+21. GOTO (22 + b)
+22. GOTO 24
+23. GOTO 26
+24. c = c + 1
+25. GOTO 18
+26. e = c
+27. GOTO 8
+28. c = (1 if f == a else 0)
+29. GOTO (30 + c)
+30. GOTO 6
